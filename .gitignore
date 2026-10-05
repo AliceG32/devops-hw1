@@ -18,3 +18,4 @@ venv/
 
 .idea/
 /terraform/.terraform/
+/terraform/cli_config.tfrc
