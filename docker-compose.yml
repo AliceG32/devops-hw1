@@ -1,0 +1,27 @@
+services:
+  app:
+    image: nginx:latest
+    container_name: app_hello_world
+    restart: always
+    volumes:
+      - app_data:/usr/share/nginx/html
+    networks:
+      - app_net
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_reverse_proxy
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - app_net
+    depends_on:
+      - app
+
+volumes:
+  app_data:
+
+networks:
+  app_net:
+    driver: bridge
