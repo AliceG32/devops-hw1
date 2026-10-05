@@ -1,0 +1,6 @@
+---
+- name: Setup Host Environment for Docker
+  hosts: your_vm_server
+  become: yes
+  roles:
+    - common
