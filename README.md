@@ -62,6 +62,23 @@ ssh student@<IP_адрес_вашей_ВМ>
 ```bash
 cd /opt/app
 
+echo "Hello World" > index.html
+
+sudo tee Dockerfile <<EOF
+FROM nginx:latest
+COPY index.html /usr/share/nginx/html/index.html
+EOF
+
+sudo tee default.conf <<EOF
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://app;
+    }
+}
+EOF
+
 sudo docker compose up -d
 
 ```
@@ -81,7 +98,7 @@ sudo docker compose ps
 
 Проверьте работу через `curl`:
 ```bash
-curl -i http://<IP_адрес_вашей_ВМ>
+curl -i http://<IP_адрес_вашей_ВМ>:8081
 
 ```
 
