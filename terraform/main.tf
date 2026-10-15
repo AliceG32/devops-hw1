@@ -17,10 +17,6 @@ resource "docker_network" "custom_nginx_net" {
   name = "nginx_dedicated_net"
 }
 
-resource "docker_network" "app_net" {
-  name = "default_app_net"
-}
-
 resource "docker_volume" "nginx_volume" {
   name = "nginx_data_volume"
 }
@@ -46,14 +42,5 @@ resource "docker_container" "nginx_custom" {
   volumes {
     volume_name    = docker_volume.nginx_volume.name
     container_path = "/usr/share/nginx/html"
-  }
-}
-
-resource "docker_container" "other_app" {
-  name  = "other_service_container"
-  image = docker_image.nginx.image_id
-
-  networks_advanced {
-    name = docker_network.app_net.name
   }
 }
